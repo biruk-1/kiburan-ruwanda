@@ -1,92 +1,104 @@
 import { motion } from 'framer-motion';
-import { FaBuilding, FaCode, FaCogs, FaLightbulb } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const services = [
   {
-    icon: FaBuilding,
-    title: "Construction",
-    description: "Modern construction solutions with cutting-edge technology and sustainable practices.",
-    color: "from-blue-500 to-blue-700"
+    title: 'Design',
+    description: 'Transform your brand with cutting-edge design solutions that captivate and engage your audience.',
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+      </svg>
+    ),
+    link: '/services/design',
   },
   {
-    icon: FaCode,
-    title: "Software Development",
-    description: "Custom software solutions tailored to your business needs with latest technologies.",
-    color: "from-purple-500 to-purple-700"
+    title: 'Technology',
+    description: 'Innovative tech solutions to streamline your operations and drive digital transformation.',
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    ),
+    link: '/services/technology',
   },
   {
-    icon: FaCogs,
-    title: "Engineering",
-    description: "Innovative engineering solutions for complex technical challenges.",
-    color: "from-green-500 to-green-700"
+    title: 'Events',
+    description: 'Create memorable experiences with our comprehensive event management services.',
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    ),
+    link: '/services/events',
   },
   {
-    icon: FaLightbulb,
-    title: "Consulting",
-    description: "Strategic consulting services to help your business grow and innovate.",
-    color: "from-orange-500 to-orange-700"
+    title: 'Consulting',
+    description: 'Expert guidance to help your business grow and succeed in the modern market.',
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      </svg>
+    ),
+    link: '/services/consulting',
+  },
+  {
+    title: 'Marketing',
+    description: 'Strategic marketing solutions to boost your brand visibility and reach.',
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+      </svg>
+    ),
+    link: '/services/marketing',
   }
 ];
 
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: index * 0.2 }}
-    className="relative group"
-  >
-    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent to-orange-500 rounded-2xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-    <div className="relative bg-black px-6 py-8 rounded-xl border border-accent/20 backdrop-blur-sm transform transition duration-500 group-hover:-translate-y-2">
-      <div className="flex items-center justify-center w-16 h-16 mb-6 mx-auto">
-        <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${service.color} opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
-        <service.icon className="w-8 h-8 text-accent relative z-10" />
-      </div>
-      
-      <h3 className="text-2xl font-bold text-center mb-4 bg-gradient-to-r from-accent to-orange-500 bg-clip-text text-transparent">
-        {service.title}
-      </h3>
-      
-      <p className="text-textGray text-center">
-        {service.description}
-      </p>
-      
-      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-accent to-orange-500 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </div>
-  </motion.div>
-);
-
 export default function Services() {
   return (
-    <section id="services" className="py-20 bg-black relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-accent rounded-full filter blur-3xl animate-blob" />
-        <div className="absolute top-0 right-0 w-72 h-72 bg-orange-500 rounded-full filter blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-purple-500 rounded-full filter blur-3xl animate-blob animation-delay-4000" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section id="services" className="py-24 bg-gradient-to-b from-black via-gray-900 to-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Our{" "}
-            <span className="bg-gradient-to-r from-accent to-orange-500 bg-clip-text text-transparent">
-              Services
+            <span className="bg-gradient-to-r from-accent via-accent to-white bg-clip-text text-transparent">
+              Our Services
             </span>
           </h2>
-          <p className="text-xl text-textGray max-w-3xl mx-auto">
-            We offer a comprehensive range of services to help your business thrive in the modern world.
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+            Discover our comprehensive range of services designed to help your business thrive in the digital age.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <Link
+                to={service.link}
+                className="block h-full bg-white/5 backdrop-blur-xl rounded-2xl p-8 hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="h-12 w-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                  <div className="text-accent">{service.icon}</div>
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white">{service.title}</h3>
+                <p className="text-gray-400">{service.description}</p>
+                <div className="mt-6 flex items-center text-accent">
+                  <span className="text-sm font-medium">Learn more</span>
+                  <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>

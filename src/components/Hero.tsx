@@ -1,6 +1,34 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
+// Industry-specific content
+const industries = [
+  {
+    title: "Tech Innovation",
+    description: "Cutting-edge software solutions and digital transformation",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
+    color: "from-blue-500 to-blue-700"
+  },
+  {
+    title: "Construction Excellence",
+    description: "Modern infrastructure and sustainable building solutions",
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80",
+    color: "from-yellow-500 to-yellow-700"
+  },
+  {
+    title: "Event Management",
+    description: "World-class events and conferences in Rwanda",
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80",
+    color: "from-purple-500 to-purple-700"
+  },
+  {
+    title: "Strategic Marketing",
+    description: "Data-driven marketing solutions for the digital age",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80",
+    color: "from-green-500 to-green-700"
+  }
+];
+
 const Particle = ({ delay }: { delay: number }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0 }}
@@ -22,6 +50,7 @@ const Particle = ({ delay }: { delay: number }) => (
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [currentIndustry, setCurrentIndustry] = useState(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -33,6 +62,13 @@ export default function Hero() {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndustry((prev) => (prev + 1) % industries.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -55,32 +91,26 @@ export default function Hero() {
         />
       </div>
 
-      {/* 3D Rotating Border */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          animate={{
-            rotateY: [0, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="w-[800px] h-[800px] border border-accent/20 rounded-full"
-          style={{
-            transformStyle: 'preserve-3d',
-            perspective: '1000px'
-          }}
-        />
-      </div>
+      {/* Industry Background Image */}
+      <motion.div
+        key={currentIndustry}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.15 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${industries[currentIndustry].image})`,
+        }}
+      />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative"
+          className="text-center"
         >
           <motion.div
             animate={{
@@ -91,53 +121,50 @@ export default function Hero() {
               repeat: Infinity,
               repeatType: "reverse",
             }}
-            className="absolute -inset-4 bg-gradient-to-r from-accent/20 to-orange-500/20 rounded-xl blur-xl"
-          />
-          <div className="relative bg-black/50 backdrop-blur-sm rounded-xl p-8 border border-accent/20">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            className="relative inline-block"
+          >
+            <div className="absolute -inset-4 bg-gradient-to-r from-accent/20 to-orange-500/20 rounded-xl blur-xl" />
+            <h1 className="relative text-5xl md:text-7xl font-bold mb-6">
               <span className="bg-gradient-to-r from-accent to-orange-500 bg-clip-text text-transparent">
-                Kiburan
+                Kiburan is in 
               </span>{" "}
-              is Now in Rwanda
+              Rwanda
             </h1>
-            <p className="text-xl md:text-2xl text-textGray max-w-3xl mx-auto mb-12">
-              Empowering growth through construction, technology, and innovation.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary relative group overflow-hidden"
-              >
-                <span className="relative z-10">Explore Our Services</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-accent to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-outline relative group overflow-hidden"
-              >
-                <span className="relative z-10">Contact Us</span>
-                <div className="absolute inset-0 bg-accent opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-              </motion.button>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: [0, 10, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="w-6 h-10 border-2 border-accent rounded-full p-1">
-            <div className="w-1.5 h-1.5 bg-accent rounded-full mx-auto animate-bounce" />
+          <motion.div
+            key={currentIndustry}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="mt-8"
+          >
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${industries[currentIndustry].color} bg-clip-text text-transparent`}>
+              {industries[currentIndustry].title}
+            </h2>
+            <p className="text-xl md:text-2xl text-textGray max-w-3xl mx-auto mb-12">
+              {industries[currentIndustry].description}
+            </p>
+          </motion.div>
+
+          <div className="flex flex-wrap justify-center gap-4">
+            <motion.a
+              href="#services"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary"
+            >
+              Explore Our Services
+            </motion.a>
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-outline"
+            >
+              Get in Touch
+            </motion.a>
           </div>
         </motion.div>
       </div>
