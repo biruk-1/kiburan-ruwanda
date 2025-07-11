@@ -130,12 +130,12 @@ export default function Footer() {
               <ul className="mt-4 space-y-4">
                 <li>
                   <a href="tel:+250700000000" className="text-base text-gray-300 hover:text-white">
-                    +250 700 000 000
+                    +251 911524508
                   </a>
                 </li>
                 <li>
                   <a href="mailto:info@kiburan.rw" className="text-base text-gray-300 hover:text-white">
-                    info@kiburan.rw
+                    contact@kiburan.com
                   </a>
                 </li>
                 <li className="text-base text-gray-300">

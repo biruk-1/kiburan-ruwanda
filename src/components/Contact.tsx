@@ -135,7 +135,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-accent mb-1">Call Us</h3>
-                  <p className="text-textGray">+250 XXX XXX XXX</p>
+                  <p className="text-textGray">+251 911524508</p>
+                  <p className="text-textGray">+251 978405454</p>
+                  <p className="text-textGray">+251 9752054554</p>
                 </div>
               </div>
 
@@ -145,7 +147,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-accent mb-1">Email Us</h3>
-                  <p className="text-textGray">contact@kiburan.rw</p>
+                  <p className="text-textGray">contact@kiburan.com</p>
                 </div>
               </div>
             </div>
