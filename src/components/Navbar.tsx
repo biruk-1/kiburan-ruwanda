@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navItems = [
-  { name: 'Home', href: '/' },
+  { name: 'Home', href: '/#home' },
   { name: 'About', href: '/#about' },
   { name: 'Services', href: '/#services' },
   { name: 'Portfolio', href: '/#portfolio' },
@@ -14,18 +14,40 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
+      // Handle navbar background
       const isScrolled = window.scrollY > 20;
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
       }
+
+      // Handle active section
+      const sections = navItems.map(item => item.href.replace('/#', ''));
+      let currentSection = sections[0];
+      let minDistance = Infinity;
+
+      sections.forEach(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const distance = Math.abs(rect.top);
+          if (distance < minDistance) {
+            minDistance = distance;
+            currentSection = section;
+          }
+        }
+      });
+
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Call once on mount to set initial state
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrolled]);
 
@@ -35,6 +57,8 @@ export default function Navbar() {
       const element = document.querySelector(href.substring(1));
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+        const sectionId = href.replace('/#', '');
+        setActiveSection(sectionId);
       }
     } else {
       navigate(href);
@@ -45,7 +69,8 @@ export default function Navbar() {
     if (href === '/') {
       return location.pathname === '/';
     }
-    return location.hash === href.split('#')[1] || location.pathname.includes(href);
+    const sectionId = href.replace('/#', '');
+    return activeSection === sectionId || location.pathname.includes(href);
   };
 
   return (
@@ -69,13 +94,26 @@ export default function Navbar() {
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-3xl font-display font-bold cursor-pointer"
-              onClick={() => handleNavigation('/')}
+              className="cursor-pointer h-12"
+              onClick={() => handleNavigation('/#home')}
             >
-              <span className="bg-gradient-to-r from-accent via-accent to-white bg-clip-text text-transparent">
-                Kiburan
-              </span>
-              <span className="text-sm font-normal ml-2 text-accent/80">RWANDA</span>
+              <div className="flex items-center">
+                <div className="h-12 w-12 relative">
+                  <div className={`absolute inset-0 ${scrolled ? 'text-white' : 'text-blue-800'}`}>
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect x="10" y="10" width="35" height="35" rx="5" className="fill-current"/>
+                      <circle cx="70" cy="27.5" r="17.5" className="fill-current"/>
+                      <rect x="10" y="55" width="35" height="35" rx="5" className="fill-current"/>
+                    </svg>
+                  </div>
+                </div>
+                <span className={`ml-3 text-2xl font-bold ${scrolled ? 'text-white' : 'text-blue-800'}`}>
+                  Kiburan
+                </span>
+                <span className={`text-sm font-normal ml-2 ${scrolled ? 'text-white/80' : 'text-blue-800/80'}`}>
+                  RWANDA
+                </span>
+              </div>
             </motion.div>
           </motion.div>
           
@@ -116,7 +154,7 @@ export default function Navbar() {
                 className="ml-6"
               >
                 <button
-                  onClick={() => handleNavigation('/contact')}
+                  onClick={() => handleNavigation('/#contact')}
                   className="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium transition-all bg-accent rounded-lg hover:bg-accent/90 group"
                 >
                   <span className="relative text-black group-hover:text-black">
@@ -165,17 +203,17 @@ export default function Navbar() {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden"
+            className="md:hidden bg-black/95 backdrop-blur-xl border-t border-white/5"
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, delay: 0.1 }}
-              className="px-4 py-5 mt-2 space-y-3 bg-black/95 backdrop-blur-2xl border-t border-white/5"
+              className="py-3"
             >
               {navItems.map((item, index) => (
                 <motion.div
@@ -186,7 +224,7 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => handleNavigation(item.href)}
-                    className={`block w-full text-left px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                    className={`block w-full px-4 py-2 text-base font-medium ${
                       isActive(item.href)
                         ? 'text-accent bg-accent/5'
                         : 'text-gray-300 hover:text-white hover:bg-white/5'
@@ -196,6 +234,7 @@ export default function Navbar() {
                   </button>
                 </motion.div>
               ))}
+              
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -203,7 +242,7 @@ export default function Navbar() {
                 className="px-4 pt-2"
               >
                 <button
-                  onClick={() => handleNavigation('/contact')}
+                  onClick={() => handleNavigation('/#contact')}
                   className="relative flex items-center justify-center w-full px-6 py-3 text-sm font-medium text-black bg-accent rounded-lg hover:bg-accent/90 transition-all duration-300"
                 >
                   Get Started

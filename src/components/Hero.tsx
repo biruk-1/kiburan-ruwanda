@@ -10,10 +10,10 @@ const industries = [
     color: "from-blue-500 to-blue-700"
   },
   {
-    title: "Construction Excellence",
-    description: "Modern infrastructure and sustainable building solutions",
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80",
-    color: "from-yellow-500 to-yellow-700"
+    title: "Design Excellence",
+    description: "Creative solutions and innovative design experiences",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80",
+    color: "from-purple-500 to-purple-700"
   },
   {
     title: "Event Management",

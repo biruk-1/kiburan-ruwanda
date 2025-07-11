@@ -60,101 +60,114 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-2xl font-display font-bold bg-gradient-to-r from-accent to-orange-500 bg-clip-text text-transparent">
-                Kiburan
-              </span>
+              <div className="flex items-center">
+                <div className="h-12 w-12 relative">
+                  <div className="absolute inset-0 text-white">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect x="10" y="10" width="35" height="35" rx="5" className="fill-current"/>
+                      <circle cx="70" cy="27.5" r="17.5" className="fill-current"/>
+                      <rect x="10" y="55" width="35" height="35" rx="5" className="fill-current"/>
+                    </svg>
+                  </div>
+                </div>
+                <span className="ml-3 text-2xl font-bold text-white">
+                  Kiburan
+                </span>
+              </div>
               <p className="mt-4 text-textGray max-w-md">
-                Empowering businesses across Rwanda with innovative solutions in construction,
+                Empowering businesses across Rwanda with innovative solutions in design,
                 technology, and strategic consulting.
               </p>
             </motion.div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <h3 className="text-accent font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-3">
+          <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* Navigation */}
+            <div>
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Navigation</h3>
+              <ul className="mt-4 space-y-4">
                 {navigation.main.map((item) => (
                   <li key={item.name}>
-                    <a
-                      href={item.href}
-                      className="text-textGray hover:text-accent transition-colors duration-300"
-                    >
+                    <a href={item.href} className="text-base text-gray-300 hover:text-white">
                       {item.name}
                     </a>
                   </li>
                 ))}
               </ul>
-            </motion.div>
-          </div>
+            </div>
 
-          {/* Newsletter */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-4"
-            >
-              <h3 className="text-accent font-semibold">Stay Connected</h3>
-              <p className="text-textGray">Subscribe to our newsletter for updates.</p>
-              <form className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 bg-black/50 border border-accent/20 rounded-lg focus:outline-none focus:border-accent text-textLight"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="submit"
-                  className="btn-primary"
-                >
-                  Subscribe
-                </motion.button>
-              </form>
-            </motion.div>
+            {/* Services */}
+            <div>
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Services</h3>
+              <ul className="mt-4 space-y-4">
+                <li>
+                  <a href="#" className="text-base text-gray-300 hover:text-white">
+                    Design
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-base text-gray-300 hover:text-white">
+                    Technology
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-base text-gray-300 hover:text-white">
+                    Events
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-base text-gray-300 hover:text-white">
+                    Marketing
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Contact</h3>
+              <ul className="mt-4 space-y-4">
+                <li>
+                  <a href="tel:+250700000000" className="text-base text-gray-300 hover:text-white">
+                    +250 700 000 000
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:info@kiburan.rw" className="text-base text-gray-300 hover:text-white">
+                    info@kiburan.rw
+                  </a>
+                </li>
+                <li className="text-base text-gray-300">
+                  Kigali, Rwanda
+                </li>
+              </ul>
+            </div>
+
+            {/* Social */}
+            <div>
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Follow Us</h3>
+              <div className="mt-4 flex space-x-6">
+                {navigation.social.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-400 hover:text-gray-300"
+                  >
+                    <span className="sr-only">{item.name}</span>
+                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Social links and copyright */}
-        <div className="pt-8 border-t border-accent/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="flex space-x-6"
-            >
-              {navigation.social.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-textGray hover:text-accent"
-                >
-                  <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-6 w-6" aria-hidden="true" />
-                </a>
-              ))}
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-textGray text-sm"
-            >
-              &copy; 2024 Kiburan. All rights reserved. This design is made with ❤️ by Kiburan Dev Team.
-            </motion.p>
-          </div>
+        {/* Copyright */}
+        <div className="pt-8 border-t border-white/10">
+          <p className="text-base text-gray-400 text-center">
+            &copy; {new Date().getFullYear()} Kiburan Rwanda. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
